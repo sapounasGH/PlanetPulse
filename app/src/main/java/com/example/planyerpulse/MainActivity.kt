@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
             PlanyerPulseTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Android",
+                        name = "AndroidSapounas",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
-        text = "Hello12 $name!",
+        text = "Hello $name!",
         modifier = modifier
     )
 }
