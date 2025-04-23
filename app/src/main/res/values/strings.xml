@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">PlanyerPulse</string>
+    <string name="planetpulse">PlanetPulse</string>
+    <string name="pr">Πάρε μέρος και άλλαξε τον κόσμο!</string>
+    <string name="eg">Εγγραφή</string>
+    <string name="log">Σύνδεση</string>
 </resources>

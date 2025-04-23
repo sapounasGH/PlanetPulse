@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/mainn"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="24dp"
+    android:background="#F9F9F3">
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Δημιουργία Λογαριασμού"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginRight="50dp"
+        android:textColor="#336633"
+        android:layout_marginTop="80dp"/>
+    <EditText
+        android:id="@+id/NameField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Όνομα"
+        android:layout_marginTop="80dp"
+        android:inputType="textPersonName"
+        android:layout_marginBottom="40dp"
+        android:textColorHint="#336633" />
+    <EditText
+        android:id="@+id/surnameField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Επώνυμο"
+        android:inputType="textPersonName"
+        android:layout_marginBottom="40dp"
+        android:textColorHint="#336633" />
+    <EditText
+        android:id="@+id/emaildField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="40dp"
+        android:textColorHint="#336633" />
+    <EditText
+        android:id="@+id/usernameField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:hint="Όνομα Χρήστη"
+        android:inputType="textPersonName"
+        android:layout_marginBottom="40dp"
+        android:textColorHint="#336633"/>
+
+    <EditText
+        android:id="@+id/passwordField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Κωδικός Χρήστη"
+        android:inputType="textPassword"
+        android:layout_marginBottom="6dp"
+        android:textColorHint="#336633" />
+
+    <Button
+        android:id="@+id/SignupSubmitButton"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#336633"
+        android:layout_marginTop="90dp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/radius"
+        android:text="Εγγραφή" />
+</LinearLayout>
