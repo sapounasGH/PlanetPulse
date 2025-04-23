@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity2">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="Δράσεις"
+        android:layout_marginTop="33dp"
+        android:layout_marginLeft="35dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="31dp"
+        android:gravity="center"
+        />
+
+    <HorizontalScrollView
+        android:layout_width="400dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="92dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:padding="8dp"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Τοποθεσία"
+                android:backgroundTint="@color/lightgreen"
+                android:textColor="@color/black"
+                android:layout_marginEnd="8dp"
+                android:padding="10dp"
+                android:background="@drawable/roundedtxt"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ημερομηνία"
+                android:backgroundTint="@color/lightgreen"
+                android:textColor="@color/black"
+                android:layout_marginEnd="8dp"
+                android:padding="10dp"
+                android:background="@drawable/roundedtxt"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Τύπος"
+                android:backgroundTint="@color/lightgreen"
+                android:textColor="@color/black"
+                android:layout_marginEnd="8dp"
+                android:padding="10dp"
+                android:background="@drawable/roundedtxt"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Επείγον"
+                android:backgroundTint="@color/lightgreen"
+                android:textColor="@color/black"
+                android:layout_marginEnd="8dp"
+                android:padding="10dp"
+                android:background="@drawable/roundedtxt"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Δημοφιλή"
+                android:backgroundTint="@color/lightgreen"
+                android:textColor="@color/black"
+                android:padding="10dp"
+                android:background="@drawable/roundedtxt"/>
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1000dp"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/roundedtxt"
+        android:backgroundTint="@color/white"
+        >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/draseis"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"></LinearLayout>
+
+    </ScrollView>
+    </LinearLayout>
+</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
