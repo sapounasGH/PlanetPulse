@@ -35,13 +35,15 @@
         android:inputType="textPersonName"
         android:layout_marginBottom="40dp"
         android:textColorHint="#336633" />
+
     <EditText
         android:id="@+id/emaildField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:layout_marginBottom="40dp"
+        android:singleLine="true"
         android:textColorHint="#336633" />
     <EditText
         android:id="@+id/usernameField"
