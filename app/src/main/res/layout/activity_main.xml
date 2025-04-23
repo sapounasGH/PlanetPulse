@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="24dp"
+    android:background="#F9F9F3">
+
+    <!-- Τίτλος -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/planetpulse"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#336633"
+        android:layout_marginTop="155dp"/>
+
+    <!-- Υπότιτλος -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pr"
+        android:textSize="16sp"
+        android:textColor="#336633"
+        android:layout_marginTop="12dp"
+        android:gravity="center"/>
+
+    <!-- Εικόνα -->
+    <ImageView
+        android:id="@+id/plantImage"
+        android:layout_width="400dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/plant_image" />
+
+    <!-- Κουμπί Εγγραφή -->
+
+    <!-- Κουμπί Σύνδεση -->
+    <Button
+        android:id="@+id/signupButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#336633"
+        android:text="@string/eg"
+        android:background="@drawable/radius"
+        android:textColor="#FFFFFF"
+        />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_button"
+        android:backgroundTint="#336633"
+        android:text="@string/log"
+        android:textColor="#336633" />
+
+</LinearLayout>
