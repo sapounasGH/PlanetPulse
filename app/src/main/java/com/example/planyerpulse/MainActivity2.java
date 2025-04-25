@@ -25,6 +25,7 @@ public class MainActivity2 extends AppCompatActivity {
         for (int i = 0; i < 15; i++){
             View view = getLayoutInflater().inflate(R.layout.card, null);
             lLayout.addView(view);
+
         }
     }
 }
