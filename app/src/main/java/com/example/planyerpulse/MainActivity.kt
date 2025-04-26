@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         }
         val signupButton = findViewById<Button>(R.id.signupButton)
         signupButton.setOnClickListener {
-            val intent = Intent(this, drasidetails::class.java)
+            val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
         }
 
