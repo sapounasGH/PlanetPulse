@@ -13,35 +13,44 @@
     card_view:cardUseCompatPadding="true"
     >
 
-            <TextView
-                android:id="@+id/titlosdrasis"
-                android:layout_width="190dp"
-                android:layout_height="60dp"
-                android:text="Drasi, mpla mpla, mpla , mpla"
-                android:layout_margin="10dp"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                />
-            <TextView
-                android:id="@+id/Meros"
-                android:layout_width="190dp"
-                android:layout_height="30dp"
-                android:text="Salonikara"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="70dp"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                />
-            <TextView
-                android:id="@+id/wra"
-                android:layout_width="190dp"
-                android:layout_height="30dp"
-                android:text="1:28"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="100dp"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                />
+
+    <TextView
+        android:id="@+id/titlosdrasis"
+        android:layout_width="190dp"
+        android:layout_height="49dp"
+        android:layout_margin="10dp"
+        android:text="Drasi, mpla mpla, mpla , mpla"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/Meros"
+        android:layout_width="190dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="60dp"
+        android:text="Salonikara"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/wra"
+        android:layout_width="190dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="90dp"
+        android:text="1:28"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/hmerohnia"
+        android:layout_width="190dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="120dp"
+        android:text="8 Octomber "
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
     <ImageView
         android:layout_width="match_parent"

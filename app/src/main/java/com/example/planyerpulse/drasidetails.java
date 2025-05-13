@@ -1,6 +1,7 @@
 package com.example.planyerpulse;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -31,7 +32,18 @@ public class drasidetails extends AppCompatActivity {
         });
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-
+        String titlosdrasis=getIntent().getStringExtra("titlosdrasis");
+        String meros=getIntent().getStringExtra("meros");
+        String wra=getIntent().getStringExtra("wra");
+        String hmerohnia=getIntent().getStringExtra("hmerohnia");
+        TextView textView1 = findViewById(R.id.textView2);
+        textView1.setText(titlosdrasis);
+        TextView textView2 = findViewById(R.id.textView3);
+        textView2.setText(hmerohnia);
+        TextView textView4 = findViewById(R.id.textView4);
+        textView4.setText(wra);
+        TextView textView5 = findViewById(R.id.textView5);
+        textView5.setText(meros);
         if (mapFragment != null) {
             mapFragment.getMapAsync(new OnMapReadyCallback() {
                 @Override
