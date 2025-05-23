@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "250344065319",
+    "project_id": "planyerpulse-18aeb",
+    "storage_bucket": "planyerpulse-18aeb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:250344065319:android:0e4c9309c8155041f08102",
+        "android_client_info": {
+          "package_name": "com.example.planyerpulse"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKEg9toNQTKyjqYPsMQz42DOq-t7pmbIU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
