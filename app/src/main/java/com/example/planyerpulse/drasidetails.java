@@ -2,6 +2,10 @@ package com.example.planyerpulse;
 
 import android.os.Bundle;
 import android.widget.TextView;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -17,11 +21,19 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class drasidetails extends AppCompatActivity {
 
+    private FirebaseFirestore db;
+    private String onxristi;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        db = FirebaseFirestore.getInstance();
+        onxristi = getIntent().getStringExtra("onxristi");
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_drasidetails);
@@ -33,6 +45,7 @@ public class drasidetails extends AppCompatActivity {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         String titlosdrasis=getIntent().getStringExtra("titlosdrasis");
+
         String meros=getIntent().getStringExtra("meros");
         String wra=getIntent().getStringExtra("wra");
         String hmerohnia=getIntent().getStringExtra("hmerohnia");
@@ -54,5 +67,35 @@ public class drasidetails extends AppCompatActivity {
                 }
             });
         }
+        Button pointButton = findViewById(R.id.button2);
+        pointButton.setOnClickListener(v -> {
+            if (onxristi != null) {
+                db.collection("Users")
+                        .whereEqualTo("onxristi", onxristi)
+                        .get()
+                        .addOnSuccessListener(queryDocumentSnapshots -> {
+                            if (!queryDocumentSnapshots.isEmpty()) {
+                                DocumentReference userRef = queryDocumentSnapshots.getDocuments().get(0).getReference();
+                                userRef.update("points", FieldValue.increment(1))
+                                        .addOnSuccessListener(unused -> {
+                                            Toast.makeText(drasidetails.this, "Πόντος προστέθηκε!", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(drasidetails.this, MainActivity2.class);
+                                            startActivity(intent);
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Toast.makeText(drasidetails.this, "Σφάλμα: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        });
+                            }
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(drasidetails.this, "Σφάλμα σύνδεσης με βάση", Toast.LENGTH_SHORT).show();
+                        });
+            } else {
+                Toast.makeText(this, "Δεν βρέθηκε χρήστης!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
     }
+
 }
