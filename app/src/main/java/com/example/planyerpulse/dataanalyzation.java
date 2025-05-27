@@ -139,7 +139,7 @@ public class dataanalyzation {
         if (avgCo > 1) {
             arrayList.add(new drasiCLASS(LocalDate.now().plusDays(7), "Λευκός Πύργος", LocalTime.of(9, 0), "Ζεσταίνουμε αλλιώς"));
         }
-/// //////////////////////////
+/////////////////////////////
         double totalO3AGS = 0;
         int countO3AGS = 0;
 

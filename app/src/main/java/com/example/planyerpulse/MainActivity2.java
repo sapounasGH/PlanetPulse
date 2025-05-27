@@ -68,7 +68,8 @@ public class MainActivity2 extends AppCompatActivity {
     }
     private void setupCards(long points, String onxristi) {
         lLayout = findViewById(R.id.draseis);
-        ArrayList<drasiCLASS> arrayList = dataAnalysation();
+        dataanalyzation dataanalyzation = new dataanalyzation();
+        ArrayList<drasiCLASS> arrayList = dataanalyzation.dataAnalysation2(MainActivity2.this);
 
         for (int i = 0; i < arrayList.size(); i++) {
             View view = getLayoutInflater().inflate(R.layout.card, null);
