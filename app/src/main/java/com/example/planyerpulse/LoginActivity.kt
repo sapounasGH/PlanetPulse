@@ -49,9 +49,11 @@ class LoginActivity : AppCompatActivity() {
                             val onxristi = document.getString("onxristi") ?: ""
                             val email = document.getString("email") ?: ""
                             val kwd = document.getString("kwd") ?: ""
+                            val points = document.getLong("points") ?: ""
                             // Στέλνουμε στην επόμενη σελίδα
                             val intent = Intent(this, MainActivity2::class.java)
                             intent.putExtra("name", name)
+                            intent.putExtra("points", points)
                             intent.putExtra("sname", sname)
                             intent.putExtra("onxristi", onxristi)
                             intent.putExtra("email", email)
