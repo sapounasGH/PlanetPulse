@@ -50,6 +50,7 @@ class LoginActivity : AppCompatActivity() {
                             val email = document.getString("email") ?: ""
                             val kwd = document.getString("kwd") ?: ""
                             val points = document.getLong("points") ?: ""
+                            val drasi = document.getString("drasis") ?: ""
                             // Στέλνουμε στην επόμενη σελίδα
                             val intent = Intent(this, MainActivity2::class.java)
                             intent.putExtra("name", name)
@@ -58,14 +59,15 @@ class LoginActivity : AppCompatActivity() {
                             intent.putExtra("onxristi", onxristi)
                             intent.putExtra("email", email)
                             intent.putExtra("kwd", kwd)
+                            intent.putExtra("drasis", drasi)
                             val sharedPref = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
                             sharedPref.edit().apply {
                                 putString("loggedUser", onxristi)
                                 putString("loggedName", name)
                                 apply()
                             }
+                            finishAffinity()
                             startActivity(intent)
-                            finish()
                         } else {
                             Toast.makeText(this, "Λάθος όνομα χρήστη ή κωδικός", Toast.LENGTH_SHORT).show()
                         }

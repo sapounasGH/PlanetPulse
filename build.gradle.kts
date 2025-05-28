@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android) apply false
 
 
-   alias (libs.plugins.gms) apply false
+   alias (libs.plugins.gms)
 
 
 }

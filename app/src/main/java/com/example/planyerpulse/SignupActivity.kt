@@ -67,7 +67,8 @@ class SignupActivity : AppCompatActivity() {
                             "onxristi" to userText,
                             "kwd" to passText,
                             "email" to emailText,
-                            "points" to 0
+                            "points" to 0,
+                            "drasis" to "nodraseis1234"
                         )
 
                         db.collection("Users")
