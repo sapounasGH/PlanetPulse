@@ -76,6 +76,7 @@ public class dataanalyzation {
         List<List<String[]>> allFilesData1 = new ArrayList<>();
         List<List<String[]>> allFilesData2 = new ArrayList<>();
         List<List<String[]>> allFilesData3 = new ArrayList<>();
+        List<List<String[]>> allFilesData4 = new ArrayList<>();
         try {
             String[] files = context.getAssets().list("");
             //
@@ -129,6 +130,19 @@ public class dataanalyzation {
                     }
                     reader.close();
                     allFilesData3.add(rows);
+                }
+
+                if (filename.startsWith("pm10_merged_2__PM10#NEO")) {
+                    List<String[]> rows = new ArrayList<>();
+                    InputStream is = context.getAssets().open(filename);
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        String[] cols = line.split(",");
+                        rows.add(cols);
+                    }
+                    reader.close();
+                    allFilesData4.add(rows);
                 }
 
             }
@@ -260,21 +274,92 @@ public class dataanalyzation {
         double totalO3AGS = 0;
         int countO3AGS = 0;
 
-        for (List<String[]> fileData : allFilesData2) {
-            for (int i = 1; i < fileData.size(); i++) {
+        for (List<String[]> fileData : allFilesData3) { // ή όποια λίστα αφορά το συγκεκριμένο αρχείο
+            for (int i = 0; i < fileData.size(); i++) {
                 String[] row = fileData.get(i);
-                try {
-                    double Co = Double.parseDouble(row[4]);
-                    totalO3AGS += Co;
-                    countO3AGS++;
-                } catch (Exception e) {
-                    continue;
+
+                // Από το 1 μέχρι το τέλος (η στήλη 0 είναι ημερομηνία)
+                for (int j = 1; j < row.length; j++) {
+                    try {
+                        double O3 = Double.parseDouble(row[j]);
+                        totalO3AGS += O3;
+                        countO3AGS++;
+                    } catch (Exception e) {
+                        // skip λάθος τιμές
+                    }
                 }
             }
         }
         double avgO3AGS = totalO3AGS / countO3AGS;
-        if (avgO3AGS > 1) {
+        if (avgO3AGS > 60) {
             //arrayList.add(new drasiCLASS(LocalDate.now().plusDays(14), "Λευκός Πύργος", LocalTime.of(9, 0), "Ζεσταίνουμε αλλιώς"));
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DAY_OF_YEAR, 6);
+            calendar.set(Calendar.HOUR_OF_DAY, 18);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            Date newDate = calendar.getTime();
+            Timestamp newTimestamp = new Timestamp(newDate);
+            GeoPoint geoPoint = new GeoPoint(40.633455, 22.945909);
+            data.put("dateTime", newTimestamp);
+            data.put("mapsPlace", geoPoint);
+            data.put("name", "Ενημερωτική Εκστρατεία για Υψηλό Οζον");
+            data.put("place", "Αγίας Σοφίας");
+            db.collection("drasi").add(data)
+                    .addOnSuccessListener(aVoid -> {
+                        Log.d("Firestore", "DocumentSnapshot successfully written!");
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.w("Firestore", "Error writing document", e);
+                    });
         }
-    }
+        /// ////////////////////////
+        double totalPM10 = 0;
+        int countPM10 = 0;
+
+        for (List<String[]> fileData : allFilesData4) {
+            for (int i = 0; i < fileData.size(); i++) {
+                String[] row = fileData.get(i);
+
+                // Από το 1 μέχρι το τέλος (η στήλη 0 είναι η ημερομηνία)
+                for (int j = 1; j < row.length; j++) {
+                    try {
+                        double PM10 = Double.parseDouble(row[j]);
+                        // Αγνόησε "κενά" ή invalid data όπως -9999
+                        if (PM10 > -100 && PM10 < 1000) { // Λογικό range PM10
+                            totalPM10 += PM10;
+                            countPM10++;
+                        }
+                    } catch (Exception e) {
+                        // skip λάθος τιμές
+                    }
+                }
+            }
+        }
+
+        double avgPM10 = totalPM10 / countPM10;
+        if (avgPM10 > 50) {
+            Map<String, Object> data = new HashMap<>();
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DAY_OF_YEAR, 3);
+            calendar.set(Calendar.HOUR_OF_DAY, 19);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            Date newDate = calendar.getTime();
+            Timestamp newTimestamp = new Timestamp(newDate);
+            GeoPoint geoPoint = new GeoPoint(40.629269, 22.948545); // π.χ. Νέο Δημαρχείο
+
+            data.put("dateTime", newTimestamp);
+            data.put("mapsPlace", geoPoint);
+            data.put("name", "Δράση Ενημέρωσης για PM10");
+            data.put("place", "Νέο Δημαρχείο");
+            data.put("avgPM10", avgPM10);
+
+            db.collection("drasi").add(data)
+                    .addOnSuccessListener(aVoid -> Log.d("Firestore", "DocumentSnapshot successfully written!"))
+                    .addOnFailureListener(e -> Log.w("Firestore", "Error writing document", e));
+        }
+   }
 }

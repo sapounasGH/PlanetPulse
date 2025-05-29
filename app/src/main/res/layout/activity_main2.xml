@@ -38,6 +38,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/toposthesiaBUT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Τοποθεσία"
@@ -48,6 +49,7 @@
                 android:background="@drawable/roundedtxt"/>
 
             <Button
+                android:id="@+id/hmerohniaBUT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ημερομηνία"
@@ -58,34 +60,15 @@
                 android:background="@drawable/roundedtxt"/>
 
             <Button
+                android:id="@+id/oiDraseismou"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Τύπος"
+                android:text="Οι δρασεις μου"
                 android:backgroundTint="@color/lightgreen"
                 android:textColor="@color/black"
                 android:layout_marginEnd="8dp"
                 android:padding="10dp"
                 android:background="@drawable/roundedtxt"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Επείγον"
-                android:backgroundTint="@color/lightgreen"
-                android:textColor="@color/black"
-                android:layout_marginEnd="8dp"
-                android:padding="10dp"
-                android:background="@drawable/roundedtxt"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Δημοφιλή"
-                android:backgroundTint="@color/lightgreen"
-                android:textColor="@color/black"
-                android:padding="10dp"
-                android:background="@drawable/roundedtxt"/>
-
         </LinearLayout>
 
     </HorizontalScrollView>

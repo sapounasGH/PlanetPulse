@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +22,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainActivity2 extends AppCompatActivity {
@@ -34,6 +37,7 @@ public class MainActivity2 extends AppCompatActivity {
     String drasiID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         onxristi = getIntent().getStringExtra("onxristi");
         drasiID=getIntent().getStringExtra("drasis");
         super.onCreate(savedInstanceState);
@@ -67,7 +71,19 @@ public class MainActivity2 extends AppCompatActivity {
         });
         System.out.println(drasiID);
         setupCards(drasiID);
-        System.out.println("Eginan oi kartes!!");
+        //button filters
+        Button filterbtn = findViewById(R.id.hmerohniaBUT);
+        filterbtn.setOnClickListener(v -> {
+            HmeromhniaFilter();
+        });
+        Button filterbtn12 = findViewById(R.id.toposthesiaBUT);
+        filterbtn12.setOnClickListener(v -> {
+            TopothesiaFilter();
+        });
+        Button filterbtn13 = findViewById(R.id.oiDraseismou);
+        filterbtn13.setOnClickListener(v -> {
+            OiDraseisMouFilter(drasiID);
+        });
     }
     private void setupCards(String drasid) {
         lLayout = findViewById(R.id.draseis);
@@ -117,5 +133,162 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
 
+    private void HmeromhniaFilter(){
+        lLayout = findViewById(R.id.draseis);
+        lLayout.removeAllViews();
+        //ΕΔΩ ΘΑ ΕΙΝΑΙ Η ΣΥΑΝΡΤΗΣΗ ΗΜΕΡΟΜΗΝΙΩΝ
+        db.collection("drasi")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<DocumentSnapshot> documents = queryDocumentSnapshots.getDocuments();
 
+                    // Ταξινόμηση των εγγράφων κατά ημερομηνία (Timestamp)
+                    documents.sort(Comparator.comparing(doc -> doc.toObject(drasiCLASS.class).getDateTime().toDate()));
+
+                    for (DocumentSnapshot document : documents) {
+                        drasiCLASS item = document.toObject(drasiCLASS.class);
+                        View view = getLayoutInflater().inflate(R.layout.card, null);
+                        Timestamp timestamp = item.getDateTime();
+                        Date date = timestamp.toDate();
+                        GeoPoint gp = item.getmapsPlace();
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
+                        String dateString = sdf.format(date);
+                        String dateTimeString = sdf2.format(date);
+
+                        TextView textView1 = view.findViewById(R.id.titlosdrasis);
+                        TextView textView2 = view.findViewById(R.id.Meros);
+                        TextView textView3 = view.findViewById(R.id.wra);
+                        TextView textView4 = view.findViewById(R.id.hmerohnia);
+
+                        textView1.setText(item.name);
+                        textView2.setText(item.place);
+                        textView3.setText(dateTimeString);
+                        textView4.setText(dateString);
+
+                        if (!document.getId().equals(drasiID)) {
+                            view.setOnClickListener(v -> {
+                                Intent intent = new Intent(MainActivity2.this, drasidetails.class);
+                                intent.putExtra("titlosdrasis", textView1.getText());
+                                intent.putExtra("meros", textView2.getText());
+                                intent.putExtra("wra", textView3.getText());
+                                intent.putExtra("hmerohnia", textView4.getText());
+                                intent.putExtra("onxristi", onxristi);
+                                intent.putExtra("points", points);
+                                intent.putExtra("longitude", gp.getLongitude());
+                                intent.putExtra("latitude", gp.getLatitude());
+                                intent.putExtra("drasiID", document.getId());
+                                startActivity(intent);
+                            });
+                        } else {
+                            view.setEnabled(false);
+                            view.setAlpha(0.5f);
+                        }
+
+                        lLayout.addView(view); // Προσθέτει την κάρτα στο layout
+                    }
+                })
+                .addOnFailureListener(e -> Log.e("Firestore", "Σφάλμα φίλτρου ημερομηνίας", e));
+    }
+
+    private void TopothesiaFilter(){
+        lLayout = findViewById(R.id.draseis);
+        db.collection("drasi")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<DocumentSnapshot> documents = queryDocumentSnapshots.getDocuments();
+
+                    // Ταξινόμηση βάσει του πεδίου "place"
+                    documents.sort(Comparator.comparing((DocumentSnapshot doc) -> {
+                        drasiCLASS item = doc.toObject(drasiCLASS.class);
+                        if (item != null && item.getPlace() != null) {
+                            return item.getPlace().toLowerCase(); // ώστε να αγνοεί κεφαλαία/πεζά
+                        } else {
+                            return ""; // Άδειες τοποθεσίες πάνε πρώτες
+                        }
+                    }));
+
+                    for (DocumentSnapshot document : documents) {
+                        drasiCLASS item = document.toObject(drasiCLASS.class);
+                        View view = getLayoutInflater().inflate(R.layout.card, null);
+                        Timestamp timestamp = item.getDateTime();
+                        Date date = timestamp.toDate();
+                        GeoPoint gp = item.getmapsPlace();
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
+                        String dateString = sdf.format(date);
+                        String dateTimeString = sdf2.format(date);
+
+                        TextView textView1 = view.findViewById(R.id.titlosdrasis);
+                        TextView textView2 = view.findViewById(R.id.Meros);
+                        TextView textView3 = view.findViewById(R.id.wra);
+                        TextView textView4 = view.findViewById(R.id.hmerohnia);
+
+                        textView1.setText(item.name);
+                        textView2.setText(item.place);
+                        textView3.setText(dateTimeString);
+                        textView4.setText(dateString);
+
+                        if (!document.getId().equals(drasiID)) {
+                            view.setOnClickListener(v -> {
+                                Intent intent = new Intent(MainActivity2.this, drasidetails.class);
+                                intent.putExtra("titlosdrasis", textView1.getText());
+                                intent.putExtra("meros", textView2.getText());
+                                intent.putExtra("wra", textView3.getText());
+                                intent.putExtra("hmerohnia", textView4.getText());
+                                intent.putExtra("onxristi", onxristi);
+                                intent.putExtra("points", points);
+                                intent.putExtra("longitude", gp.getLongitude());
+                                intent.putExtra("latitude", gp.getLatitude());
+                                intent.putExtra("drasiID", document.getId());
+                                startActivity(intent);
+                            });
+                        } else {
+                            view.setEnabled(false);
+                            view.setAlpha(0.5f);
+                        }
+
+                        lLayout.addView(view);
+                    }
+                })
+                .addOnFailureListener(e -> Log.e("Firestore", "Σφάλμα φίλτρου τοποθεσίας", e));
+
+    }
+
+    private void OiDraseisMouFilter(String drasid){
+        lLayout = findViewById(R.id.draseis);
+        db.collection("drasi")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        if(document.getId().equals(drasid)){
+                            drasiCLASS item = document.toObject(drasiCLASS.class);
+                            View view = getLayoutInflater().inflate(R.layout.card, null);
+                            Timestamp timestamp= item.getDateTime();
+                            Date date= timestamp.toDate();
+                            GeoPoint gp=item.getmapsPlace();
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                            SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
+                            String dateString = sdf.format(date);
+                            String dateTimeString = sdf2.format(date);
+                            lLayout.addView(view);
+                            TextView textView1 = view.findViewById(R.id.titlosdrasis);
+                            TextView textView2 = view.findViewById(R.id.Meros);
+                            TextView textView3 = view.findViewById(R.id.wra);
+                            TextView textView4 = view.findViewById(R.id.hmerohnia);
+                            textView1.setText(item.name);
+                            textView2.setText(item.place);
+                            textView3.setText(dateTimeString);
+                            textView4.setText(dateString);
+                            view.setEnabled(false);view.setAlpha(0.5f);
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.e("Firestore", "Σφάλμα στην ανάκτηση: ", e);
+                });
+
+    }
 }
