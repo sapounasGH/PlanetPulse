@@ -71,6 +71,7 @@ public class dataanalyzation {
         List<List<String[]>> allFilesData2 = new ArrayList<>();
         List<List<String[]>> allFilesData3 = new ArrayList<>();
         List<List<String[]>> allFilesData4 = new ArrayList<>();
+        List<List<String[]>> allFilesData5 = new ArrayList<>();
         try {
             String[] files = context.getAssets().list("");
             for (String filename : files) {
@@ -138,6 +139,18 @@ public class dataanalyzation {
                     allFilesData4.add(rows);
                 }
 
+                if (filename.startsWith("seameasures_2024_07__seameasurements_")) {
+                    List<String[]> rows = new ArrayList<>();
+                    InputStream is = context.getAssets().open(filename);
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        String[] cols = line.split(",");
+                        rows.add(cols);
+                    }
+                    reader.close();
+                    allFilesData5.add(rows);
+                }
             }
         } catch (IOException e) {
         }
@@ -170,7 +183,7 @@ public class dataanalyzation {
             GeoPoint geoPoint = new GeoPoint(40.62626280172782, 22.947939295840637);
             data.put("dateTime", newTimestamp);
             data.put("mapsPlace", geoPoint);
-            data.put("name", "Περπατάμε Μαζί");
+            data.put("name", "Δενδροφύτευση");
             data.put("place", "Λευκός Πύργος");
             db.collection("drasi").add(data)
                     .addOnSuccessListener(aVoid -> {
@@ -210,7 +223,7 @@ public class dataanalyzation {
             GeoPoint geoPoint = new GeoPoint(40.62626280172782, 22.947939295840637);
             data.put("dateTime", newTimestamp);
             data.put("mapsPlace", geoPoint);
-            data.put("name", "Εργαστήρι Καθαρού Αέρα");
+            data.put("name", "Δενδροφύτευση");
             data.put("place", "Λευκός Πύργος");
             db.collection("drasi").add(data)
                     .addOnSuccessListener(aVoid -> {
@@ -249,7 +262,7 @@ public class dataanalyzation {
             GeoPoint geoPoint = new GeoPoint(40.62626280172782, 22.947939295840637);
             data.put("dateTime", newTimestamp);
             data.put("mapsPlace", geoPoint);
-            data.put("name", "Ζεσταίνουμε αλλιώς");
+            data.put("name", "Δενδροφύτευση");
             data.put("place", "Λευκός Πύργος");
             db.collection("drasi").add(data)
                     .addOnSuccessListener(aVoid -> {
@@ -277,7 +290,7 @@ public class dataanalyzation {
             }
         }
         double avgO3AGS = totalO3AGS / countO3AGS;
-        if (avgO3AGS > 60) {
+        if (avgO3AGS > 0) {
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.DAY_OF_YEAR, 6);
             calendar.set(Calendar.HOUR_OF_DAY, 18);
@@ -320,8 +333,7 @@ public class dataanalyzation {
         }
 
         double avgPM10 = totalPM10 / countPM10;
-        if (avgPM10 > 50) {
-            Map<String, Object> data = new HashMap<>();
+        if (avgPM10 > 0) {
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.DAY_OF_YEAR, 3);
             calendar.set(Calendar.HOUR_OF_DAY, 19);
@@ -336,11 +348,53 @@ public class dataanalyzation {
             data.put("mapsPlace", geoPoint);
             data.put("name", "Δράση Ενημέρωσης για PM10");
             data.put("place", "Νέο Δημαρχείο");
-            data.put("avgPM10", avgPM10);
 
             db.collection("drasi").add(data)
                     .addOnSuccessListener(aVoid -> Log.d("Firestore", "DocumentSnapshot successfully written!"))
                     .addOnFailureListener(e -> Log.w("Firestore", "Error writing document", e));
+        }
+        /// ///////////////////////////////
+
+        double totalTemp = 0;
+        int countTemp = 0;
+
+        for (List<String[]> fileData : allFilesData5) {
+            for (int i = 1; i < fileData.size(); i++) {
+                String[] row = fileData.get(i);
+                String parameter = row[0].trim();
+                String resultStr = row[2].replace("\"", "").replace(",", ".").trim(); // Αντικατάσταση κόμμα με τελεία
+
+                if (parameter.equalsIgnoreCase("Θερμοκρασία")) {
+                    try {
+                        double temp = Double.parseDouble(resultStr);
+                        totalTemp += temp;
+                        countTemp++;
+                    } catch (Exception e) {
+                    }
+                }
+            }
+        }
+
+        if (countTemp > 0) {
+            double avgTemp = totalTemp / countTemp;
+            if (avgTemp > 28) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.DAY_OF_YEAR, 1);
+                calendar.set(Calendar.HOUR_OF_DAY, 11);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
+                Date newDate = calendar.getTime();
+                Timestamp newTimestamp = new Timestamp(newDate);
+                GeoPoint geoPoint = new GeoPoint(40.633409, 22.937160);
+                data.put("dateTime", newTimestamp);
+                data.put("mapsPlace", geoPoint);
+                data.put("name", "Καθαρισμός Παραλίας");
+                data.put("place", "Παλίο Λιμανι θεσσαλονίκης");
+                db.collection("drasi").add(data)
+                        .addOnSuccessListener(aVoid -> Log.d("Firestore", "DocumentSnapshot successfully written!"))
+                        .addOnFailureListener(e -> Log.w("Firestore", "Error writing document", e));
+            }
         }
    }
 }

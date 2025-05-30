@@ -190,6 +190,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     private void TopothesiaFilter(){
         lLayout = findViewById(R.id.draseis);
+        lLayout.removeAllViews();
         db.collection("drasi")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
@@ -253,6 +254,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     private void OiDraseisMouFilter(String drasid){
         lLayout = findViewById(R.id.draseis);
+        lLayout.removeAllViews();
         db.collection("drasi")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
