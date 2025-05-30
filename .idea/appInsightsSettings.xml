@@ -8,7 +8,7 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.example.planyerpulse" />
+                  <option name="appId" value="com.example.planetpulse" />
                   <option name="mobileSdkAppId" value="1:250344065319:android:0e4c9309c8155041f08102" />
                   <option name="projectId" value="planyerpulse-18aeb" />
                   <option name="projectNumber" value="250344065319" />

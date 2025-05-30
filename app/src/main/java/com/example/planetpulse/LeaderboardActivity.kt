@@ -1,4 +1,4 @@
-package com.example.planyerpulse
+package com.example.planetpulse
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -26,7 +26,7 @@ class LeaderboardActivity : AppCompatActivity() {
         val lLayout1 = findViewById<LinearLayout>(R.id.people)
         val db = FirebaseFirestore.getInstance()
         db.collection("Users")
-            .orderBy("points", Query.Direction.DESCENDING)  // Ταξινόμηση φθίνουσα
+            .orderBy("points", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { result ->
                 var index = 1
@@ -45,8 +45,6 @@ class LeaderboardActivity : AppCompatActivity() {
                         if (index <= 3) R.id.ar2 else R.id.numberTextView
                     )
                     numberText.text = index.toString()
-
-                    // Βάλε όνομα χρήστη
                     val nameText = view.findViewById<TextView>(
                         if (index <= 3) R.id.Meros else R.id.Meros1
                     )

@@ -1,4 +1,4 @@
-package com.example.planyerpulse
+package com.example.planetpulse
 
 data class User (
     val name: String = "",

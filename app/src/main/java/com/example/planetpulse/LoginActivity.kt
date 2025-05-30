@@ -1,6 +1,5 @@
-package com.example.planyerpulse
+package com.example.planetpulse
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle

@@ -12,11 +12,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PlanyerPulse"
+        android:theme="@style/Theme.PlanetPulse"
         tools:targetApi="31">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD8Vh59XyaG6YfM9WecoWIYMzCoroVfzTc" />
+            android:value="AIzaSyABA8pJJ5Cjd9zMa2XFdXfNjKLNcDBpyAI" />
         <activity
             android:name=".LeaderboardActivity"
             android:exported="false" />
@@ -36,7 +36,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.PlanyerPulse">
+            android:theme="@style/Theme.PlanetPulse">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -1,4 +1,4 @@
-package com.example.planyerpulse;
+package com.example.planetpulse;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,7 +25,6 @@ import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainActivity2 extends AppCompatActivity {
 
@@ -136,13 +135,10 @@ public class MainActivity2 extends AppCompatActivity {
     private void HmeromhniaFilter(){
         lLayout = findViewById(R.id.draseis);
         lLayout.removeAllViews();
-        //ΕΔΩ ΘΑ ΕΙΝΑΙ Η ΣΥΑΝΡΤΗΣΗ ΗΜΕΡΟΜΗΝΙΩΝ
         db.collection("drasi")
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     List<DocumentSnapshot> documents = queryDocumentSnapshots.getDocuments();
-
-                    // Ταξινόμηση των εγγράφων κατά ημερομηνία (Timestamp)
                     documents.sort(Comparator.comparing(doc -> doc.toObject(drasiCLASS.class).getDateTime().toDate()));
 
                     for (DocumentSnapshot document : documents) {
@@ -186,7 +182,7 @@ public class MainActivity2 extends AppCompatActivity {
                             view.setAlpha(0.5f);
                         }
 
-                        lLayout.addView(view); // Προσθέτει την κάρτα στο layout
+                        lLayout.addView(view);
                     }
                 })
                 .addOnFailureListener(e -> Log.e("Firestore", "Σφάλμα φίλτρου ημερομηνίας", e));
@@ -198,14 +194,12 @@ public class MainActivity2 extends AppCompatActivity {
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     List<DocumentSnapshot> documents = queryDocumentSnapshots.getDocuments();
-
-                    // Ταξινόμηση βάσει του πεδίου "place"
                     documents.sort(Comparator.comparing((DocumentSnapshot doc) -> {
                         drasiCLASS item = doc.toObject(drasiCLASS.class);
                         if (item != null && item.getPlace() != null) {
-                            return item.getPlace().toLowerCase(); // ώστε να αγνοεί κεφαλαία/πεζά
+                            return item.getPlace().toLowerCase();
                         } else {
-                            return ""; // Άδειες τοποθεσίες πάνε πρώτες
+                            return "";
                         }
                     }));
 

@@ -1,4 +1,4 @@
-package com.example.planyerpulse
+package com.example.planetpulse
 
 import org.junit.Test
 

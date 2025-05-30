@@ -1,10 +1,7 @@
-package com.example.planyerpulse;
+package com.example.planetpulse;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -15,9 +12,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -79,7 +73,6 @@ public class dataanalyzation {
         List<List<String[]>> allFilesData4 = new ArrayList<>();
         try {
             String[] files = context.getAssets().list("");
-            //
             for (String filename : files) {
                 if (filename.startsWith("all_2024_no_excel_file__NOx")) {
                     List<String[]> rows = new ArrayList<>();
@@ -149,7 +142,6 @@ public class dataanalyzation {
         } catch (IOException e) {
         }
 
-        // εδω θα μπούνε τα analysation των data
         double totalNo2 = 0;
         int countNo2 = 0;
 
@@ -167,7 +159,6 @@ public class dataanalyzation {
         }
         double avgNo2 = totalNo2 / countNo2;
         if (avgNo2 > 10) {
-            //arrayList.add(new drasiCLASS(LocalDate.now().plusDays(7), "Λευκός Πύργος", LocalTime.of(9, 0), "<<Περπατάμε Μαζί>> "));
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.DAY_OF_YEAR, 14);
             calendar.set(Calendar.HOUR_OF_DAY, 10);
@@ -208,7 +199,6 @@ public class dataanalyzation {
         double avgSo2 = totalSo2 / countSo2;
 
         if (avgSo2 > 0.350) {
-            //arrayList.add(new drasiCLASS(LocalDate.now().plusDays(7), "Λευκός Πύργος", LocalTime.of(9, 0), "<<Εργαστήρι Καθαρού Αέρα>>"));
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.DAY_OF_YEAR, 10);
             calendar.set(Calendar.HOUR_OF_DAY, 10);
@@ -248,7 +238,6 @@ public class dataanalyzation {
         }
         double avgCo = totalCo / countCo;
         if (avgCo > 1) {
-            //arrayList.add(new drasiCLASS(LocalDate.now().plusDays(7), "Λευκός Πύργος", LocalTime.of(9, 0), "Ζεσταίνουμε αλλιώς"));
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.DAY_OF_YEAR, 10);
             calendar.set(Calendar.HOUR_OF_DAY, 20);
@@ -274,25 +263,21 @@ public class dataanalyzation {
         double totalO3AGS = 0;
         int countO3AGS = 0;
 
-        for (List<String[]> fileData : allFilesData3) { // ή όποια λίστα αφορά το συγκεκριμένο αρχείο
+        for (List<String[]> fileData : allFilesData3) {
             for (int i = 0; i < fileData.size(); i++) {
                 String[] row = fileData.get(i);
-
-                // Από το 1 μέχρι το τέλος (η στήλη 0 είναι ημερομηνία)
                 for (int j = 1; j < row.length; j++) {
                     try {
                         double O3 = Double.parseDouble(row[j]);
                         totalO3AGS += O3;
                         countO3AGS++;
                     } catch (Exception e) {
-                        // skip λάθος τιμές
                     }
                 }
             }
         }
         double avgO3AGS = totalO3AGS / countO3AGS;
         if (avgO3AGS > 60) {
-            //arrayList.add(new drasiCLASS(LocalDate.now().plusDays(14), "Λευκός Πύργος", LocalTime.of(9, 0), "Ζεσταίνουμε αλλιώς"));
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.DAY_OF_YEAR, 6);
             calendar.set(Calendar.HOUR_OF_DAY, 18);
@@ -321,18 +306,14 @@ public class dataanalyzation {
         for (List<String[]> fileData : allFilesData4) {
             for (int i = 0; i < fileData.size(); i++) {
                 String[] row = fileData.get(i);
-
-                // Από το 1 μέχρι το τέλος (η στήλη 0 είναι η ημερομηνία)
                 for (int j = 1; j < row.length; j++) {
                     try {
                         double PM10 = Double.parseDouble(row[j]);
-                        // Αγνόησε "κενά" ή invalid data όπως -9999
-                        if (PM10 > -100 && PM10 < 1000) { // Λογικό range PM10
+                        if (PM10 > -100 && PM10 < 1000) {
                             totalPM10 += PM10;
                             countPM10++;
                         }
                     } catch (Exception e) {
-                        // skip λάθος τιμές
                     }
                 }
             }

@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.planyerpulse"
+    namespace = "com.example.planetpulse"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.planyerpulse"
+        applicationId = "com.example.planetpulse"
         minSdk = 26
         targetSdk = 35
         versionCode = 1

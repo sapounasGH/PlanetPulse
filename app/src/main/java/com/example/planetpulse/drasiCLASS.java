@@ -1,11 +1,7 @@
-package com.example.planyerpulse;
+package com.example.planetpulse;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.GeoPoint;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class drasiCLASS {
     Timestamp dateTime;

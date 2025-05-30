@@ -1,10 +1,9 @@
-package com.example.planyerpulse
+package com.example.planetpulse
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -45,22 +44,17 @@ class SignupActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-
-
-            // Έλεγχος αν υπάρχει ήδη το username
             db.collection("Users")
                 .whereEqualTo("onxristi", userText)
                 .get()
                 .addOnSuccessListener { documents ->
                     if (!documents.isEmpty) {
-                        // Username already exists
                         Toast.makeText(
                             this,
                             "Το όνομα χρήστη υπάρχει ήδη. Δοκίμασε άλλο.",
                             Toast.LENGTH_SHORT
                         ).show()
                     } else {
-                        // Συνεχίζουμε με την εγγραφή
                         val userMap = hashMapOf(
                             "name" to nameText,
                             "sname" to snameText,

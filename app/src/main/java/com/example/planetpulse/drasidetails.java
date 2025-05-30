@@ -1,11 +1,9 @@
-package com.example.planyerpulse;
+package com.example.planetpulse;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 import android.content.Intent;
-import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -18,7 +16,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -63,6 +60,7 @@ public class drasidetails extends AppCompatActivity {
         textView7.setText(onxristi);
         Double langitude=getIntent().getDoubleExtra("longitude",0.0);
         Double latitude=getIntent().getDoubleExtra("latitude",0.0);
+        System.out.println(latitude+" "+langitude);
         if (mapFragment != null) {
             mapFragment.getMapAsync(new OnMapReadyCallback() {
                 @Override
@@ -70,6 +68,7 @@ public class drasidetails extends AppCompatActivity {
                     LatLng thessaloniki = new LatLng(latitude, langitude);
                     googleMap.addMarker(new MarkerOptions().position(thessaloniki).title("Thessaloniki"));
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(thessaloniki, 12f));
+                    System.out.println();
                 }
             });
         }
