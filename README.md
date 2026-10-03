@@ -11,7 +11,7 @@
 
 ## About
 
-**PlanetPulse** is an Android mobile application that [_brief description of what the app does — e.g., "helps users stay informed about environmental changes around the globe"_]. Built using a combination of Java and Kotlin, with Firebase powering backend services.
+**PlanetPulse** is an Android mobile application that helps users stay informed about environmental actions in Thessaloniki. Built using a combination of Java and Kotlin, with Firebase powering backend services.
 
 ---
 
